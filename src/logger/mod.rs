@@ -14,18 +14,14 @@ pub fn init_logger() -> Result<()> {
     } else {
         "warn"
     };
-    let filter = EnvFilter::try_from_default_env()
-        .unwrap_or_else(|_| {
-            EnvFilter::new(if cfg!(debug_assertions) {
-                "info"
-            } else {
-                "warn"
-            })
-        })
-        .add_directive(Directive::from_str("cosmic_text=error").unwrap())
-        .add_directive(Directive::from_str("calloop=error").unwrap())
-        .add_directive(Directive::from_str(&format!("smithay={level}")).unwrap())
-        .add_directive(Directive::from_str(&format!("cosmic_comp={level}")).unwrap());
+    let filter = match EnvFilter::try_from_default_env() {
+        Ok(env_filter) => env_filter,
+        Err(_) => EnvFilter::new(if cfg!(debug_assertions) { "info" } else { "warn" })
+            .add_directive(Directive::from_str(&format!("smithay={level}")).unwrap())
+            .add_directive(Directive::from_str(&format!("cosmic_comp={level}")).unwrap()),
+    }
+    .add_directive(Directive::from_str("cosmic_text=error").unwrap())
+    .add_directive(Directive::from_str("calloop=error").unwrap());
 
     let fmt_layer = fmt::layer().compact();
 

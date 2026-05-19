@@ -108,6 +108,7 @@ use smithay::{
         text_input::TextInputManagerState,
         viewporter::ViewporterState,
         virtual_keyboard::VirtualKeyboardManagerState,
+        virtual_pointer::VirtualPointerManagerState,
         xdg_activation::XdgActivationState,
         xdg_foreign::XdgForeignState,
         xwayland_keyboard_grab::XWaylandKeyboardGrabState,
@@ -679,6 +680,7 @@ impl State {
         InputMethodManagerState::new::<Self, _>(dh, client_not_sandboxed);
         TextInputManagerState::new::<Self>(dh);
         VirtualKeyboardManagerState::new::<State, _>(dh, client_not_sandboxed);
+        VirtualPointerManagerState::new::<State, _>(dh, client_not_sandboxed);
         AlphaModifierState::new::<Self>(dh);
         SinglePixelBufferState::new::<Self>(dh);
         FixesState::new::<Self>(dh);

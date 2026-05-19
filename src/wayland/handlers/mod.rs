@@ -34,6 +34,7 @@ pub mod shm;
 pub mod tablet_manager;
 pub mod toplevel_info;
 pub mod toplevel_management;
+pub mod virtual_pointer;
 pub mod workspace;
 pub mod xdg_activation;
 pub mod xdg_foreign;
